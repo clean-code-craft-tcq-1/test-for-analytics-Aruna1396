@@ -2,7 +2,6 @@
 
 Design tests for Analytics functionality on a Battery Monitoring System.
 
-Fill the parts marked '_enter' in the **Tasks** section below.
 
 ## Analysis-functionality to be tested
 
@@ -26,24 +25,43 @@ Notification must be sent when a new report is available.
 
 List the dependencies of the Analysis-functionality.
 
-1. Access to the Server containing the telemetrics in a csv file
-1. _enter dependency
-1. _enter dependency
+1. Access to the Server containing the telemetrics in a csv file 
+1. Access to open & read the contents of csv file
+1. External PDF Creator/Convertor utility
+   - Proper functioning of PDF utility
+   - Access of Analysis-functionality SW to utility
+   - Access to server to store the PDF report
+1. Notification Utility
+   - Proper functioning of Notification utility like Email/Alerts 
+   - Sending to the right/valid recipient 
+   - Access to server to check if new Report is generated
+   - Access to server for notification receiver to view the Report
+ 
 
-(add more if needed)
 
 ### Mark the System Boundary
 
 What is included in the software unit-test? What is not? Fill this table.
 
+Assumptions:
+
+Two external utilities are considered
+1) PDF generator/converter
+2) Notification utility - Email utility
+
+These two utilities shall be called by functions generate_pdf , send_notification and return success/failure
+These functions (generate_pdf , send_notification) shall be unit-tested.
+
+In the below table, I am considering the external utilities alone.
+
 | Item                      | Included?     | Reasoning / Assumption
 |---------------------------|---------------|---
 Battery Data-accuracy       | No            | We do not test the accuracy of data
 Computation of maximum      | Yes           | This is part of the software being developed
-Off-the-shelf PDF converter | _enter Yes/No | _enter reasoning
-Counting the breaches       | _enter Yes/No | _enter reasoning
-Detecting trends            | _enter Yes/No | _enter reasoning
-Notification utility        | _enter Yes/No | _enter reasoning
+Off-the-shelf PDF converter | No            | A mock shall be used in the place of External Email/other notifiers for unit-tests
+Counting the breaches       | Yes           | This is part of the software being developed
+Detecting trends            | Yes           | This is part of the software being developed
+Notification utility        | No            | External Notifier utility functionality is not tested, a mock could be used for Unit Tests
 
 ### List the Test Cases
 
@@ -53,10 +71,6 @@ Add to these tests:
 
 1. Write minimum and maximum to the PDF from a csv containing positive and negative readings
 1. Write "Invalid input" to the PDF when the csv doesn't contain expected data
-1. _enter a test
-1. _enter a test
-
-(add more)
 
 ### Recognize Fakes and Reality
 
@@ -66,10 +80,10 @@ Enter one part that's real and another part that's faked/mocked.
 
 | Functionality            | Input        | Output                      | Faked/mocked part
 |--------------------------|--------------|-----------------------------|---
-Read input from server     | csv file     | internal data-structure     | Fake the server store
-Validate input             | csv data     | valid / invalid             | None - it's a pure function
-Notify report availability | _enter input | _enter output               | _enter fake or mock
-Report inaccessible server | _enter input | _enter output               | _enter fake or mock
-Find minimum and maximum   | _enter input | _enter output               | _enter fake or mock
-Detect trend               | _enter input | _enter output               | _enter fake or mock
-Write to PDF               | _enter input | _enter output               | _enter fake or mock
+Read input from server     | csv file     | Internal data-structure     | Fake the server store
+Validate input             | Internal data-structure that contains csv data     | valid / invalid             | None - it's a pure function
+Find minimum and maximum   | Internal data-structure that contains csv data | Minimum/maximum values              | None- Pure Function (No external dependency)
+Detect trend               | Internal data-structure that contains csv data  | Trend Result (present/absent)               | None- Pure Function (No external dependency)
+Write to PDF               | Min, Max, BreachCount, Trends with Date, Timestamp | PDF File             | Mock/Fake the PDF creation utility
+Notify report availability | PDF File | Notification/Alert Mechanism  Result (NOTIFIED/ NOTIFIER_ERROR)               | Mock/Fake the notifier (Ex: Mock Email utility)
+Report inaccessible server | Server Location/Link, CSV/PDF file Name| Accessible/Not Accessible              | Mock the Server store access which contains CSV & Generated PDF Report
