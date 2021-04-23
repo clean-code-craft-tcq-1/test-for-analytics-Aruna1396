@@ -89,6 +89,7 @@ Add to these tests:
 5.PDF Report Creation
   1. Return "Successful Report Creation" from report contents when PDF Report is generated
   1. Return "Report Creation Failed" from report contents when PDF is not created/Utility issues
+  1. Return "PDF Stored in Server" from PDF report when Report is stored every week after successful analysis
 
 6.Notification
   1. Return "Notification Sent" when email/other notifier is successful
