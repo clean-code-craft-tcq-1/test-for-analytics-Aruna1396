@@ -31,6 +31,7 @@ List the dependencies of the Analysis-functionality.
    - Proper functioning of PDF utility
    - Access of Analysis-functionality SW to utility
    - Access to server to store the PDF report
+   - Server should not be full 
 1. Notification Utility
    - Proper functioning of Notification utility like Email/Alerts 
    - Sending to the right/valid recipient 
@@ -90,6 +91,7 @@ Add to these tests:
   1. Return "Successful Report Creation" from report contents when PDF Report is generated
   1. Return "Report Creation Failed" from report contents when PDF is not created/Utility issues
   1. Return "PDF Stored in Server" from PDF report when Report is stored every week after successful analysis
+  1. Return "Server Space Full" from server location/address when storing report failed due to storage space issues
 
 6.Notification
   1. Return "Notification Sent" when email/other notifier is successful
@@ -108,8 +110,8 @@ Enter one part that's real and another part that's faked/mocked.
 |--------------------------|--------------|-----------------------------|---
 Read input from server     | csv file     | Internal data-structure     | Fake the server store
 Validate input             | Internal data-structure that contains csv data     | valid / invalid             | None - it's a pure function
-Find minimum and maximum   | Internal data-structure that contains csv data | Minimum/maximum values              | None- Pure Function (No external dependency)
-Detect trend               | Internal data-structure that contains csv data  | Trend Result (present/absent)               | None- Pure Function (No external dependency)
+Find minimum and maximum   | Valid Internal data-structure that contains csv data | Minimum/maximum values              | None- Pure Function (No external dependency)
+Detect trend               | Valid Internal data-structure that contains csv data  | Trend Result (present/absent) , trend data              | None- Pure Function (No external dependency)
 Write to PDF               | Min, Max, BreachCount, Trends with Date, Timestamp | PDF File             | Mock/Fake the PDF creation utility
 Notify report availability | PDF File | Notification/Alert Mechanism  Result (NOTIFIED/ NOTIFIER_ERROR)               | Mock/Fake the notifier (Ex: Mock Email utility)
 Report inaccessible server | Server Location/Link, CSV/PDF file Name| Accessible/Not Accessible              | Mock the Server store access which contains CSV & Generated PDF Report
