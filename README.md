@@ -69,8 +69,33 @@ Write tests in the form of `<expected output or action>` from `<input>` / when `
 
 Add to these tests:
 
-1. Write minimum and maximum to the PDF from a csv containing positive and negative readings
-1. Write "Invalid input" to the PDF when the csv doesn't contain expected data
+1.Input Handling
+  1. Write "Invalid input" to the PDF report content when the csv doesn't contain expected data / contains NaN values
+  1. Write "Empty file" to the PDF Report content when the csv file is empty
+  1. Write "Outdated Csv Data" to PDF report content when battery telemetrics are not updated/outdated
+  1. Return "Server Inaccessible/E400" from server link/location when server containing csv/pdf report is not accessible/down
+     
+2.Write minimum and maximum to the PDF from a csv containing positive and negative readings
+3.Breach Computation
+ 1. Return "Breach Exists" from csv data when the value is greater than threshold/ not in the normal range
+ 1. Increment Breach Count Value from csv data breach when breach is detected
+ 1. Return "Breach Does not Exist" from breach Count Value when there is no breach occurred
+
+4.Trends 
+  1. Write Trends Data (Values with date & time) to PDF when there is increasing battery telemetrics values for 30 mins
+  1. Return "No Increasing Trend" when there are no trends observed
+  1. Write "No Trends Occurred" to PDF Report contents when there are no increasing battery telemetrics values for 30 mins
+
+5.PDF Report Creation
+  1. Return "Successful Report Creation" from report contents when PDF Report is generated
+  1. Return "Report Creation Failed" from report contents when PDF is not created/Utility issues
+
+6.Notification
+  1. Return "Notification Sent" when email/other notifier is successful
+  1. Return "Notifier Error" when the email/other notifier is not successful
+  1. Return "Link/PDF Attachment missing" when notification contents are missing
+  1. Return "Invalid Email" when contents of notifier (Email) (Say wrong recipient/wrong subject) are incorrect
+  1. Send alert/notification from pdf report everytime when there is new report created
 
 ### Recognize Fakes and Reality
 
